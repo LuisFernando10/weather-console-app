@@ -1,4 +1,6 @@
 
+    const axios = require('axios');
+    
     class Busquedas {
 
         //Propiedades
@@ -11,10 +13,16 @@
         // Métodos
         async ciudad( lugar = '' ) {
 
-            // perición HTTP
-            console.log(lugar);
+            try {
+                // petición HTTP
+                const response = await axios.get('https://reqres.in/api/users?page=2');
+                console.log( response.data );
 
-            return []; // Retorna lugares que coincidan
+                return []; // Retorna lugares que coincidan   
+
+            } catch (error) {
+                return [];
+            }
         }
     }
 
