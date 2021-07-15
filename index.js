@@ -24,7 +24,12 @@ const main = async() => {
 
                 // Seleccionar el lugar
                 const id_seleccionado = await listadoLugares( lugares );
+                if ( id_seleccionado === '0' ) continue;
+
                 const { nombre, lng, lat } = lugares.find( lugar => lugar.id === id_seleccionado );
+
+                //Guardar BD
+                busquedas.agregarHistorial( nombre );
 
                 // Clima
                 const { desc, min, max, temp } = await busquedas.climaLugar( lat, lng );
@@ -42,7 +47,10 @@ const main = async() => {
             break;
 
             case 2:
-                console.log(`La opción fue dos: ${ option }`);
+                busquedas.historial.forEach( (lugar, key) => {
+                    const idx = `${ key + 1 }.`.green;
+                    console.log( `${ idx } ${ lugar }` );
+                });
             break;
         }
 

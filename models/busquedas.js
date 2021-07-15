@@ -73,6 +73,14 @@ const { restoreDefaultPrompts } = require('inquirer');
                 console.log( error );
             }
         }
+
+        async agregarHistorial( lugar = '' ) {
+
+            // TODO: Prevenir duplicados
+            this.historial.unshift( lugar );
+    
+            // Grabar en BD
+        }
     }
 
     module.exports = Busquedas;
