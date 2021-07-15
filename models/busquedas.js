@@ -10,12 +10,26 @@
             // TODO: leer BD si existe
         }
 
+        get paramMapbox(){
+            return {
+                'access_token': 'pk.eyJ1IjoibGZjaGFtb3JybyIsImEiOiJja3Iybm54b2UyZGUxMnptZmR6aG5iZWhhIn0.3GdDWjch4joznMa1TuSKNg',
+                'limit': 5,
+                'language': 'es'
+            }
+        }
+
         // Métodos
         async ciudad( lugar = '' ) {
 
             try {
-                // petición HTTP
-                const response = await axios.get('https://api.mapbox.com/geocoding/v5/mapbox.places/madr.json?access_token=pk.eyJ1IjoibGZjaGFtb3JybyIsImEiOiJja3Iybm54b2UyZGUxMnptZmR6aG5iZWhhIn0.3GdDWjch4joznMa1TuSKNg&limit=5&language=es');
+                // Petición HTTP
+                const instance = axios.create({
+                    baseURL: `https://api.mapbox.com/geocoding/v5/mapbox.places/${ lugar }.json`,
+                    params: this.paramMapbox
+                });
+
+                const response = await instance.get();
+
                 console.log( response.data );
 
                 return []; // Retorna lugares que coincidan   
