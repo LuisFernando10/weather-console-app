@@ -12,7 +12,7 @@
 
         get paramMapbox(){
             return {
-                'access_token': 'pk.eyJ1IjoibGZjaGFtb3JybyIsImEiOiJja3Iybm54b2UyZGUxMnptZmR6aG5iZWhhIn0.3GdDWjch4joznMa1TuSKNg',
+                'access_token': process.env.MAPBOX_KEY || '',
                 'limit': 5,
                 'language': 'es'
             }
