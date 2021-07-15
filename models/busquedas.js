@@ -1,5 +1,6 @@
 
     const axios = require('axios');
+const { restoreDefaultPrompts } = require('inquirer');
     
     class Busquedas {
 
@@ -30,9 +31,12 @@
 
                 const response = await instance.get();
 
-                console.log( response.data );
-
-                return []; // Retorna lugares que coincidan   
+                return response.data.features.map( lugar => ({
+                    id: lugar.id,
+                    nombre: lugar.place_name,
+                    lng: lugar.center[0],
+                    lat: lugar.center[1]
+                }));
 
             } catch (error) {
                 return [];
