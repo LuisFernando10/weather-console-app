@@ -40,14 +40,14 @@ const main = async() => {
                 console.log('Ciudad:', nombre.green);
                 console.log('Lat:', lat);
                 console.log('Lng:', lng);
-                console.log('Temperatura:', temp);
-                console.log('Mínima:', min);
-                console.log('Máxima:', max);
+                console.log('Temperatura:', `${ temp } C°`);
+                console.log('Mínima:', `${ min } C°`);
+                console.log('Máxima:', `${ max } C°`);
                 console.log('Como está el Clima:', desc);
             break;
 
             case 2:
-                busquedas.historial.forEach( (lugar, key) => {
+                busquedas.historialCapitalize.forEach( (lugar, key) => {
                     const idx = `${ key + 1 }.`.green;
                     console.log( `${ idx } ${ lugar }` );
                 });

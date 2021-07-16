@@ -13,7 +13,7 @@ const preguntas = [
             },
             {
                 value: 2,
-                name: `${ '2.'.green } Tiempo.`
+                name: `${ '2.'.green } Histórico.`
             },
             {
                 value: 0,

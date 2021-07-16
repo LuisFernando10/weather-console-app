@@ -1,14 +1,26 @@
-
+    const fs = require('fs');
+    
     const axios = require('axios');
-const { restoreDefaultPrompts } = require('inquirer');
     
     class Busquedas {
 
         //Propiedades
-        historial = ['Tegucigalpa', 'Madrid', 'San José'];
+        historial = [];
+        db_path = './db/database.json';
 
         constructor() {
-            // TODO: leer BD si existe
+            this.leerDB();
+        }
+
+        get historialCapitalize(){
+
+            return this.historial.map( lugar => {
+
+                let palabras = lugar.split(' ');
+                palabras = palabras.map( palabra => palabra[0].toUpperCase() + palabra.substring(1) );
+
+                return palabras.join(' ');
+            });
         }
 
         get paramMapbox(){
@@ -77,9 +89,33 @@ const { restoreDefaultPrompts } = require('inquirer');
         async agregarHistorial( lugar = '' ) {
 
             // TODO: Prevenir duplicados
-            this.historial.unshift( lugar );
+            if( this.historial.includes( lugar.toLocaleLowerCase() ) )
+                return;
+            
+                this.historial = this.historial.splice(0,5);
+                this.historial.unshift( lugar.toLocaleLowerCase() );
     
             // Grabar en BD
+            this.guardarDB();
+        }
+
+        guardarDB() {
+
+            const pay_load = {
+                historial: this.historial
+            };
+
+            fs.writeFileSync( this.db_path, JSON.stringify( pay_load ) );
+        }
+
+        leerDB() {
+            
+            if( !fs.existsSync( this.db_path ) ) return;
+                
+            const info = fs.readFileSync( this.db_path, { encoding: 'utf-8' } );
+            const data = JSON.parse( info );
+
+            this.historial = data.historial;
         }
     }
 
